@@ -64,6 +64,8 @@ Run `npm run evidence` to execute the same 24-request Postman collection with Ne
 
 See `submission/README.md` for the submission checklist and screenshots. These are screenshots of an actual Newman/Postman collection report. The lab specifically requests Postman screenshots; if your instructor requires the desktop Postman interface, use the included collection to capture those after configuring Atlas. The stored-password screenshot proves hashing in the temporary MongoDB database; check the `users` collection in Atlas after running with your own URI.
 
+Actual Thunder Client interface screenshots from a completed Atlas test session are also available in `submission/thunder-client/`. All 19 pictured checks passed, including 401, 403, authenticated creation and updates, and admin deletion. The capture server used port 3100 and a temporary JWT secret; its dummy records were removed after testing. `atlas-password-proof.json` contains sanitized selected database fields and the bcrypt comparison result for that dummy user; the stored hash is redacted.
+
 Never commit `.env`, real database credentials, or real bearer tokens. The checked-in evidence uses dummy lab accounts and redacts JWTs.
 
 The production dependency audit (`npm audit --omit=dev`) reported zero vulnerabilities during verification. Newman 6.2.3 still has upstream advisories in its development-only dependency tree; patched compatible dependencies are pinned through `overrides` in `package.json`.

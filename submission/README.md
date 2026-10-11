@@ -2,6 +2,8 @@
 
 Repository: https://github.com/Captansleepy/Guided-Lab-Activities-Authentication-Security
 
+For actual Thunder Client interface captures from the configured Atlas database, see [thunder-client/README.md](thunder-client/README.md). That set contains 19 visually verified screenshots. The gallery below is the earlier Newman report evidence.
+
 Verified on 11 October 2026 (Asia/Bangkok): `npm test` passed 30 tests. The actual Postman collection run passed all 24 HTTP requests and 49 assertions. Password hashing was checked directly in a real temporary MongoDB database.
 
 The configured Atlas connection also passed a separate read-only smoke check: public student GET returned 200 and unauthenticated POST returned 401. That check wrote no records.
