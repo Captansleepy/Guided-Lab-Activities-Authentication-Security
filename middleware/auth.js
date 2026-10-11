@@ -2,14 +2,14 @@ const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
   const header = req.headers.authorization;
-  const [scheme, token] = typeof header === "string" ? header.split(/\s+/) : [];
+  const match = typeof header === "string" ? /^Bearer\s+(\S+)$/i.exec(header) : null;
 
-  if (scheme !== "Bearer" || !token) {
+  if (!match) {
     return res.status(401).json({ error: "No token provided" });
   }
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = jwt.verify(match[1], process.env.JWT_SECRET);
 
     if (typeof payload === "string" || !payload.id || !payload.role) {
       return res.status(401).json({ error: "Invalid token" });

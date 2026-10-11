@@ -1,0 +1,292 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CSC220 Authentication & Security — Test Evidence</title>
+    <style>
+      *{box-sizing:border-box}body{margin:0;background:#e9eef5;color:#192c42;font:16px/1.5 Arial,Helvetica,sans-serif}main{max-width:1320px;margin:32px auto;padding:0 24px 32px}.evidence{background:white;border:1px solid #d7e0eb;border-radius:18px;padding:32px;margin:24px 0;box-shadow:0 6px 24px #233b5910}.section-kicker{color:#436384;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}h1{font-size:34px;line-height:1.2;margin:10px 0 14px}h2{font-size:28px;line-height:1.2;margin:8px 0 12px}h3{font-size:17px;line-height:1.35;margin:0}h4{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#4d6279;margin:0 0 8px}.description{color:#425a73;margin:0 0 10px}.timestamp,.footnote{font-size:12px;color:#60758a}.timestamp{margin:0 0 24px}.footnote{margin:22px 0 0}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.metric{background:#f1f6fc;border:1px solid #dce7f3;padding:14px 18px;border-radius:10px}.metric strong{display:block;font-size:28px}.metric span{font-size:12px;color:#50667e}.pass-text{color:#08754f}.fail-text{color:#b32936}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border-bottom:1px solid #e5ebf3;padding:9px 8px;text-align:left}th{color:#536b84;font-size:11px;text-transform:uppercase}td:first-child{width:66%}.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.request-card{border:1px solid #d9e3ef;border-radius:12px;padding:18px;background:#fbfdff;min-width:0}.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.status{display:inline-block;border-radius:6px;padding:3px 9px;font-size:14px;font-weight:bold;flex-shrink:0}.status.pass{background:#dff6ed;color:#096b4d}.status.fail{background:#ffe5e8;color:#af2936}.endpoint{font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere;background:#eaf1fa;padding:9px;border-radius:6px;margin:13px 0}.endpoint strong{color:#24649a}.payloads{display:grid;grid-template-columns:1fr;gap:10px}pre{font:12px/1.55 Consolas,"Courier New",monospace;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;border-radius:7px;background:#edf2f8;padding:12px;color:#20394f}.assertions{list-style:none;padding:0;margin:13px 0 0;font-size:12px}.assertions li{margin-top:5px}.note{border-left:4px solid #3884bc;background:#edf5fc;padding:12px 16px;font-size:13px;color:#325675;margin:18px 0}.hash-proof{display:grid;grid-template-columns:1.15fr 1fr;gap:20px}.hash-checks{padding:20px;background:#ecf8f2;border-radius:10px}.hash-checks p{margin:0 0 12px}.hash-checks p:last-child{margin:0}.links{display:flex;flex-wrap:wrap;gap:10px;font-size:12px;margin-top:18px}a{color:#256597}.badge{background:#def5e9;color:#096b4d;padding:7px 12px;border-radius:8px;font-weight:bold;display:inline-block}.overview-sub{font-size:17px;color:#4e657e} @media(max-width:900px){.card-grid,.hash-proof{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}}
+    </style></head><body><main>
+    <section class="evidence" id="summary"><div class="section-kicker">CSC220 · Week 9 · Submission evidence</div><h1>Authentication & Security</h1>
+      <p class="overview-sub">Postman collection executed with the Newman command-line runner</p><span class="badge">ALL CHECKS PASSED</span>
+      <p class="timestamp" style="margin-top:12px">11 October 2026 at 19:57:50 GMT+7 · CSC220 Week 9 - Authentication and Security</p>
+      <div class="metrics"><div class="metric"><strong>24</strong><span>HTTP requests</span></div><div class="metric"><strong>49</strong><span>Postman assertions</span></div><div class="metric"><strong>0</strong><span>Failed assertions</span></div><div class="metric"><strong>PASS</strong><span>MongoDB bcrypt verification</span></div></div>
+      <div class="note">These results were captured from this repository's Express app, real HTTP requests and a disposable local MongoDB server. No Atlas database or .env credentials were used. This report renders saved execution evidence; it is not a Postman application screenshot.</div>
+      <table><thead><tr><th>Executed request</th><th>Method</th><th>HTTP</th><th>Assertions</th></tr></thead><tbody><tr><td>01 Register user - 201 Created</td><td>POST</td><td>201</td><td class="pass-text">3/3 passed</td></tr><tr><td>02 Duplicate email - 400 Bad Request</td><td>POST</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>03 Login user - 200 OK with JWT</td><td>POST</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>04 Wrong password - 401 Unauthorized</td><td>POST</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>05 Unknown account - 401 Unauthorized</td><td>POST</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>06 Public student list - 200 OK</td><td>GET</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>07 Create without token - 401 Unauthorized</td><td>POST</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>08 Create with invalid token - 401 Unauthorized</td><td>POST</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>09 Create with user token - 201 Created</td><td>POST</td><td>201</td><td class="pass-text">2/2 passed</td></tr><tr><td>10 Public student read - 200 OK</td><td>GET</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>11 Patch without token - 401 Unauthorized</td><td>PATCH</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>12 Patch with user token - 200 OK</td><td>PATCH</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>13 Delete without token - 401 Unauthorized</td><td>DELETE</td><td>401</td><td class="pass-text">2/2 passed</td></tr><tr><td>14 Delete with normal user - 403 Forbidden</td><td>DELETE</td><td>403</td><td class="pass-text">2/2 passed</td></tr><tr><td>15 Current user - 200 OK</td><td>GET</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>16 Invalid score - 400 Bad Request</td><td>POST</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>17 Invalid student ID - 400 Bad Request</td><td>GET</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>18 Malformed JSON - 400 Bad Request</td><td>POST</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>19 Login admin - 200 OK with JWT</td><td>POST</td><td>200</td><td class="pass-text">2/2 passed</td></tr><tr><td>20 Delete with admin - 204 No Content</td><td>DELETE</td><td>204</td><td class="pass-text">2/2 passed</td></tr><tr><td>21 Deleted student - 404 Not Found</td><td>GET</td><td>404</td><td class="pass-text">2/2 passed</td></tr><tr><td>22 Short password - 400 Bad Request</td><td>POST</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>23 Invalid email - 400 Bad Request</td><td>POST</td><td>400</td><td class="pass-text">2/2 passed</td></tr><tr><td>24 Altered JWT - 401 Unauthorized</td><td>POST</td><td>401</td><td class="pass-text">2/2 passed</td></tr></tbody></table>
+      <div class="links"><a href="results.json">Saved execution JSON</a><a href="#registration-login">Registration & login</a><a href="#unauthorized">401 evidence</a><a href="#writes">Authorized writes</a><a href="#forbidden">403 evidence</a><a href="#admin-delete">Admin delete</a><a href="#password-hash">MongoDB password hash</a></div>
+    </section>
+    <section class="evidence" id="registration-login"><div class="section-kicker">CSC220 · Week 9 · Actual API execution</div>
+    <h2>Registration & login</h2><p class="description">The public register route creates a regular user. Successful login returns a signed JWT for each account.</p>
+    <p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Newman 6.2.3 · Temporary local MongoDB</p>
+    <div class="card-grid"><article class="request-card">
+    <div class="card-top"><h3>01 Register user - 201 Created</h3><span class="status pass">201</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/auth/register</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;email&quot;: &quot;student1@example.com&quot;,
+    &quot;password&quot;: &quot;password123&quot;,
+    &quot;role&quot;: &quot;admin&quot;
+  }
+}</pre></div>
+    <div><h4>Actual response · 77 ms</h4><pre>{
+  &quot;id&quot;: &quot;6acb87ce22dfd30c4a13996f&quot;,
+  &quot;email&quot;: &quot;student1@example.com&quot;,
+  &quot;role&quot;: &quot;user&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 201</li><li class="pass-text">PASS · Default user role; supplied admin role ignored</li><li class="pass-text">PASS · No password or hash in response</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>03 Login user - 200 OK with JWT</h3><span class="status pass">200</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/auth/login</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;email&quot;: &quot;student1@example.com&quot;,
+    &quot;password&quot;: &quot;password123&quot;
+  }
+}</pre></div>
+    <div><h4>Actual response · 57 ms</h4><pre>{
+  &quot;token&quot;: &quot;[redacted JWT]&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 200</li><li class="pass-text">PASS · JWT has three parts</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>19 Login admin - 200 OK with JWT</h3><span class="status pass">200</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/auth/login</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;email&quot;: &quot;admin@example.com&quot;,
+    &quot;password&quot;: &quot;password123&quot;
+  }
+}</pre></div>
+    <div><h4>Actual response · 53 ms</h4><pre>{
+  &quot;token&quot;: &quot;[redacted JWT]&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 200</li><li class="pass-text">PASS · Admin JWT returned</li></ul>
+  </article></div>
+    <p class="footnote">Request and response values come from the completed Postman collection run. JWT values are redacted.</p></section>
+    <section class="evidence" id="unauthorized"><div class="section-kicker">CSC220 · Week 9 · Actual API execution</div>
+    <h2>401 · Authentication required</h2><p class="description">Requests without valid authentication are rejected by the running API.</p>
+    <p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Newman 6.2.3 · Temporary local MongoDB</p>
+    <div class="card-grid"><article class="request-card">
+    <div class="card-top"><h3>04 Wrong password - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/auth/login</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;email&quot;: &quot;student1@example.com&quot;,
+    &quot;password&quot;: &quot;wrongpassword&quot;
+  }
+}</pre></div>
+    <div><h4>Actual response · 52 ms</h4><pre>{
+  &quot;error&quot;: &quot;Invalid credentials&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>05 Unknown account - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/auth/login</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;email&quot;: &quot;missing@example.com&quot;,
+    &quot;password&quot;: &quot;password123&quot;
+  }
+}</pre></div>
+    <div><h4>Actual response · 4 ms</h4><pre>{
+  &quot;error&quot;: &quot;Invalid credentials&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>07 Create without token - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/students</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;name&quot;: &quot;Nora&quot;,
+    &quot;major&quot;: &quot;IT&quot;,
+    &quot;score&quot;: 88
+  }
+}</pre></div>
+    <div><h4>Actual response · 2 ms</h4><pre>{
+  &quot;error&quot;: &quot;No token provided&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>08 Create with invalid token - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/students</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;name&quot;: &quot;Nora&quot;,
+    &quot;major&quot;: &quot;IT&quot;,
+    &quot;score&quot;: 88
+  }
+}</pre></div>
+    <div><h4>Actual response · 2 ms</h4><pre>{
+  &quot;error&quot;: &quot;Invalid token&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>11 Patch without token - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>PATCH</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;score&quot;: 92
+  }
+}</pre></div>
+    <div><h4>Actual response · 1 ms</h4><pre>{
+  &quot;error&quot;: &quot;No token provided&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>13 Delete without token - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>DELETE</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {},
+  &quot;body&quot;: null
+}</pre></div>
+    <div><h4>Actual response · 2 ms</h4><pre>{
+  &quot;error&quot;: &quot;No token provided&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>24 Altered JWT - 401 Unauthorized</h3><span class="status pass">401</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/students</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;name&quot;: &quot;Nora&quot;,
+    &quot;major&quot;: &quot;IT&quot;,
+    &quot;score&quot;: 88
+  }
+}</pre></div>
+    <div><h4>Actual response · 1 ms</h4><pre>{
+  &quot;error&quot;: &quot;Invalid token&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 401</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article></div>
+    <p class="footnote">Request and response values come from the completed Postman collection run. JWT values are redacted.</p></section>
+    <section class="evidence" id="writes"><div class="section-kicker">CSC220 · Week 9 · Actual API execution</div>
+    <h2>Authenticated POST & PATCH</h2><p class="description">The collection uses the regular user's login token to create and update a student record.</p>
+    <p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Newman 6.2.3 · Temporary local MongoDB</p>
+    <div class="card-grid"><article class="request-card">
+    <div class="card-top"><h3>09 Create with user token - 201 Created</h3><span class="status pass">201</span></div>
+    <div class="endpoint"><strong>POST</strong> http://127.0.0.1:64771/api/students</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;name&quot;: &quot;Nora&quot;,
+    &quot;major&quot;: &quot;IT&quot;,
+    &quot;score&quot;: 88
+  }
+}</pre></div>
+    <div><h4>Actual response · 5 ms</h4><pre>{
+  &quot;name&quot;: &quot;Nora&quot;,
+  &quot;major&quot;: &quot;IT&quot;,
+  &quot;score&quot;: 88,
+  &quot;_id&quot;: &quot;6acb87ce22dfd30c4a139977&quot;,
+  &quot;createdAt&quot;: &quot;2026-10-11T12:57:50.458Z&quot;,
+  &quot;updatedAt&quot;: &quot;2026-10-11T12:57:50.458Z&quot;,
+  &quot;__v&quot;: 0
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 201</li><li class="pass-text">PASS · Student fields saved</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>12 Patch with user token - 200 OK</h3><span class="status pass">200</span></div>
+    <div class="endpoint"><strong>PATCH</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;,
+    &quot;Content-Type&quot;: &quot;application/json&quot;
+  },
+  &quot;body&quot;: {
+    &quot;score&quot;: 92
+  }
+}</pre></div>
+    <div><h4>Actual response · 6 ms</h4><pre>{
+  &quot;_id&quot;: &quot;6acb87ce22dfd30c4a139977&quot;,
+  &quot;name&quot;: &quot;Nora&quot;,
+  &quot;major&quot;: &quot;IT&quot;,
+  &quot;score&quot;: 92,
+  &quot;createdAt&quot;: &quot;2026-10-11T12:57:50.458Z&quot;,
+  &quot;updatedAt&quot;: &quot;2026-10-11T12:57:50.520Z&quot;,
+  &quot;__v&quot;: 0
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 200</li><li class="pass-text">PASS · Score updated</li></ul>
+  </article></div>
+    <p class="footnote">Request and response values come from the completed Postman collection run. JWT values are redacted.</p></section>
+    <section class="evidence" id="forbidden"><div class="section-kicker">CSC220 · Week 9 · Actual API execution</div>
+    <h2>403 · Admin permission required</h2><p class="description">A regular user's authenticated request cannot perform the admin-only deletion.</p>
+    <p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Newman 6.2.3 · Temporary local MongoDB</p>
+    <div class="card-grid"><article class="request-card">
+    <div class="card-top"><h3>14 Delete with normal user - 403 Forbidden</h3><span class="status pass">403</span></div>
+    <div class="endpoint"><strong>DELETE</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;
+  },
+  &quot;body&quot;: null
+}</pre></div>
+    <div><h4>Actual response · 2 ms</h4><pre>{
+  &quot;error&quot;: &quot;Forbidden&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 403</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article></div>
+    <p class="footnote">Request and response values come from the completed Postman collection run. JWT values are redacted.</p></section>
+    <section class="evidence" id="admin-delete"><div class="section-kicker">CSC220 · Week 9 · Actual API execution</div>
+    <h2>Admin deletion & database outcome</h2><p class="description">The admin's login token permits deletion. The follow-up request checks the deleted resource.</p>
+    <p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Newman 6.2.3 · Temporary local MongoDB</p>
+    <div class="card-grid"><article class="request-card">
+    <div class="card-top"><h3>20 Delete with admin - 204 No Content</h3><span class="status pass">204</span></div>
+    <div class="endpoint"><strong>DELETE</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {
+    &quot;Authorization&quot;: &quot;Bearer [redacted]&quot;
+  },
+  &quot;body&quot;: null
+}</pre></div>
+    <div><h4>Actual response · 3 ms</h4><pre>(empty body)</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 204</li><li class="pass-text">PASS · No response body</li></ul>
+  </article><article class="request-card">
+    <div class="card-top"><h3>21 Deleted student - 404 Not Found</h3><span class="status pass">404</span></div>
+    <div class="endpoint"><strong>GET</strong> http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977</div>
+    <div class="payloads"><div><h4>Request</h4><pre>{
+  &quot;headers&quot;: {},
+  &quot;body&quot;: null
+}</pre></div>
+    <div><h4>Actual response · 3 ms</h4><pre>{
+  &quot;error&quot;: &quot;Student not found&quot;
+}</pre></div></div>
+    <ul class="assertions"><li class="pass-text">PASS · HTTP 404</li><li class="pass-text">PASS · Expected error message</li></ul>
+  </article></div>
+    <p class="footnote">Request and response values come from the completed Postman collection run. JWT values are redacted.</p></section>
+    <section class="evidence" id="password-hash"><div class="section-kicker">CSC220 · Week 9 · Actual database evidence</div><h2>MongoDB stores a bcrypt hash</h2>
+      <p class="description">The runner reads the registered user directly from the temporary MongoDB database through Mongoose.</p><p class="timestamp">11 October 2026 at 19:57:50 GMT+7 · Database: csc220_evidence</p>
+      <div class="hash-proof"><div><h4>Executed database query</h4><pre>User.findOne({ email: "student1@example.com" })
+  .select("+password")
+  .lean()</pre><h4 style="margin-top:18px">Actual stored document (selected fields)</h4><pre>{
+  &quot;_id&quot;: &quot;6acb87ce22dfd30c4a13996f&quot;,
+  &quot;email&quot;: &quot;student1@example.com&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;password&quot;: &quot;$2b$10$BQ/EjEgA5lNXhwy135ZNqeuDjZAxFQTyaO/j/sfKfnFh4EhoDWVQq&quot;
+}</pre></div>
+      <div class="hash-checks"><h3 style="margin-bottom:20px">Verified against the stored password</h3><p class="pass-text"><strong>PASS</strong> · bcrypt.compare("password123", storedHash)</p><p class="pass-text"><strong>PASS</strong> · Stored value is a bcrypt hash</p><p class="pass-text"><strong>PASS</strong> · Plaintext password is not stored</p><p>Bcrypt cost: <strong>10</strong></p><p>Account role: <strong>user</strong></p><p>Sample password is a dummy lab credential.</p></div></div><p class="footnote">This hash belongs only to the disposable test account. The local database is stopped and discarded after this run.</p>
+    </section></main></body></html>

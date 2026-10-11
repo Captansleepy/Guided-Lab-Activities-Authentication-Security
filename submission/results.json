@@ -1,0 +1,797 @@
+{
+  "recordedAt": "2026-10-11T12:57:50.830Z",
+  "recordedAtBangkok": "11 October 2026 at 19:57:50 GMT+7",
+  "timezone": "Asia/Bangkok",
+  "collectionName": "CSC220 Week 9 - Authentication and Security",
+  "runner": {
+    "name": "Newman / Postman collection runner",
+    "version": "6.2.3"
+  },
+  "database": {
+    "kind": "Disposable local MongoDB",
+    "name": "csc220_evidence",
+    "atlasUsed": false
+  },
+  "stats": {
+    "requests": 24,
+    "failedRequests": 0,
+    "assertions": 49,
+    "failedAssertions": 0,
+    "durationMs": 706
+  },
+  "executions": [
+    {
+      "name": "01 Register user - 201 Created",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "student1@example.com",
+          "password": "password123",
+          "role": "admin"
+        }
+      },
+      "response": {
+        "code": 201,
+        "status": "Created",
+        "responseTimeMs": 77,
+        "body": {
+          "id": "6acb87ce22dfd30c4a13996f",
+          "email": "student1@example.com",
+          "role": "user"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 201",
+          "passed": true
+        },
+        {
+          "name": "Default user role; supplied admin role ignored",
+          "passed": true
+        },
+        {
+          "name": "No password or hash in response",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "02 Duplicate email - 400 Bad Request",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "student1@example.com",
+          "password": "password123"
+        }
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 54,
+        "body": {
+          "error": "Email already registered"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "03 Login user - 200 OK with JWT",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "student1@example.com",
+          "password": "password123"
+        }
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 57,
+        "body": {
+          "token": "[redacted JWT]"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "JWT has three parts",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "04 Wrong password - 401 Unauthorized",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "student1@example.com",
+          "password": "wrongpassword"
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 52,
+        "body": {
+          "error": "Invalid credentials"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "05 Unknown account - 401 Unauthorized",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "missing@example.com",
+          "password": "password123"
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 4,
+        "body": {
+          "error": "Invalid credentials"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "06 Public student list - 200 OK",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 4,
+        "body": []
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "Public list returns an array",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "07 Create without token - 401 Unauthorized",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 88
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "No token provided"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "08 Create with invalid token - 401 Unauthorized",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {
+          "Authorization": "Bearer [redacted]",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 88
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "Invalid token"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "09 Create with user token - 201 Created",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {
+          "Authorization": "Bearer [redacted]",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 88
+        }
+      },
+      "response": {
+        "code": 201,
+        "status": "Created",
+        "responseTimeMs": 5,
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 88,
+          "_id": "6acb87ce22dfd30c4a139977",
+          "createdAt": "2026-10-11T12:57:50.458Z",
+          "updatedAt": "2026-10-11T12:57:50.458Z",
+          "__v": 0
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 201",
+          "passed": true
+        },
+        {
+          "name": "Student fields saved",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "10 Public student read - 200 OK",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 3,
+        "body": {
+          "_id": "6acb87ce22dfd30c4a139977",
+          "name": "Nora",
+          "major": "IT",
+          "score": 88,
+          "createdAt": "2026-10-11T12:57:50.458Z",
+          "updatedAt": "2026-10-11T12:57:50.458Z",
+          "__v": 0
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "Public read returns created student",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "11 Patch without token - 401 Unauthorized",
+      "request": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "score": 92
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 1,
+        "body": {
+          "error": "No token provided"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "12 Patch with user token - 200 OK",
+      "request": {
+        "method": "PATCH",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {
+          "Authorization": "Bearer [redacted]",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "score": 92
+        }
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 6,
+        "body": {
+          "_id": "6acb87ce22dfd30c4a139977",
+          "name": "Nora",
+          "major": "IT",
+          "score": 92,
+          "createdAt": "2026-10-11T12:57:50.458Z",
+          "updatedAt": "2026-10-11T12:57:50.520Z",
+          "__v": 0
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "Score updated",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "13 Delete without token - 401 Unauthorized",
+      "request": {
+        "method": "DELETE",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "No token provided"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "14 Delete with normal user - 403 Forbidden",
+      "request": {
+        "method": "DELETE",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {
+          "Authorization": "Bearer [redacted]"
+        },
+        "body": null
+      },
+      "response": {
+        "code": 403,
+        "status": "Forbidden",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "Forbidden"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 403",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "15 Current user - 200 OK",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64771/api/auth/me",
+        "headers": {
+          "Authorization": "Bearer [redacted]"
+        },
+        "body": null
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 2,
+        "body": {
+          "id": "6acb87ce22dfd30c4a13996f",
+          "role": "user"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "Verified user identity",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "16 Invalid score - 400 Bad Request",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {
+          "Authorization": "Bearer [redacted]",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 101
+        }
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 3,
+        "body": {
+          "error": "Invalid data"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "17 Invalid student ID - 400 Bad Request",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64771/api/students/not-an-id",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "Invalid student ID"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "18 Malformed JSON - 400 Bad Request",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"email\":"
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "Invalid JSON body"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "19 Login admin - 200 OK with JWT",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/login",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "admin@example.com",
+          "password": "password123"
+        }
+      },
+      "response": {
+        "code": 200,
+        "status": "OK",
+        "responseTimeMs": 53,
+        "body": {
+          "token": "[redacted JWT]"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 200",
+          "passed": true
+        },
+        {
+          "name": "Admin JWT returned",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "20 Delete with admin - 204 No Content",
+      "request": {
+        "method": "DELETE",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {
+          "Authorization": "Bearer [redacted]"
+        },
+        "body": null
+      },
+      "response": {
+        "code": 204,
+        "status": "No Content",
+        "responseTimeMs": 3,
+        "body": null
+      },
+      "assertions": [
+        {
+          "name": "HTTP 204",
+          "passed": true
+        },
+        {
+          "name": "No response body",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "21 Deleted student - 404 Not Found",
+      "request": {
+        "method": "GET",
+        "url": "http://127.0.0.1:64771/api/students/6acb87ce22dfd30c4a139977",
+        "headers": {},
+        "body": null
+      },
+      "response": {
+        "code": 404,
+        "status": "Not Found",
+        "responseTimeMs": 3,
+        "body": {
+          "error": "Student not found"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 404",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "22 Short password - 400 Bad Request",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "short@example.com",
+          "password": "short"
+        }
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 1,
+        "body": {
+          "error": "Password must be at least 8 characters and no more than 72 bytes"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "23 Invalid email - 400 Bad Request",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/auth/register",
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "email": "invalid-email",
+          "password": "password123"
+        }
+      },
+      "response": {
+        "code": 400,
+        "status": "Bad Request",
+        "responseTimeMs": 2,
+        "body": {
+          "error": "A valid email is required"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 400",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "name": "24 Altered JWT - 401 Unauthorized",
+      "request": {
+        "method": "POST",
+        "url": "http://127.0.0.1:64771/api/students",
+        "headers": {
+          "Authorization": "Bearer [redacted]",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "name": "Nora",
+          "major": "IT",
+          "score": 88
+        }
+      },
+      "response": {
+        "code": 401,
+        "status": "Unauthorized",
+        "responseTimeMs": 1,
+        "body": {
+          "error": "Invalid token"
+        }
+      },
+      "assertions": [
+        {
+          "name": "HTTP 401",
+          "passed": true
+        },
+        {
+          "name": "Expected error message",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "failures": [],
+  "passwordStorage": {
+    "id": "6acb87ce22dfd30c4a13996f",
+    "email": "student1@example.com",
+    "role": "user",
+    "passwordHash": "$2b$10$BQ/EjEgA5lNXhwy135ZNqeuDjZAxFQTyaO/j/sfKfnFh4EhoDWVQq",
+    "isBcrypt": true,
+    "cost": 10,
+    "passwordMatches": true,
+    "plaintextStored": false
+  },
+  "success": true
+}

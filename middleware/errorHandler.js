@@ -11,6 +11,10 @@ function errorHandler(error, req, res, next) {
     return res.status(400).json({ error: "Email already registered" });
   }
 
+  if (error.type === "entity.too.large") {
+    return res.status(413).json({ error: "Request body too large" });
+  }
+
   if (error instanceof SyntaxError && error.status === 400 && "body" in error) {
     return res.status(400).json({ error: "Invalid JSON body" });
   }

@@ -4,7 +4,7 @@ Express and MongoDB implementation of the Week 9 guided lab. It includes user re
 
 ## Setup
 
-1. Install Node.js 18 or later.
+1. Install Node.js 20.19 or later.
 2. Copy `.env.example` to `.env` (in PowerShell, run `Copy-Item .env.example .env`).
 3. In `.env`, set `MONGODB_URI` to the Atlas connection string, replacing the username and password placeholders with your Atlas database credentials. Include a database name in the URL, such as `student_api`. Do not commit `.env`.
 4. Set `JWT_SECRET` to a unique random value of at least 32 characters. Do not reuse your MongoDB password.
@@ -17,6 +17,8 @@ Express and MongoDB implementation of the Week 9 guided lab. It includes user re
    ```
 
 The server listens on port `3000` unless `PORT` is set.
+
+Run `npm run check:db` to verify your configured database connection, a public GET, and a rejected unauthenticated POST without writing any records.
 
 ## API
 
@@ -48,4 +50,20 @@ Registration accepts an email and a password of at least eight characters. It ne
 5. Try DELETE with a normal-user token; expect `403`. Promote a test user in Atlas, log in again, and retry with the new admin token; expect `204`.
 6. An invalid token returns `401`; `/api/auth/me` returns the authenticated user's id and role.
 
-Run the automated middleware tests with `npm test`.
+## Automated verification
+
+Run `npm test` for the middleware and real HTTP integration tests. The integration tests start a disposable local MongoDB database, verify password hashes in stored documents, and exercise registration, login, public reads, protected writes, validation, and admin deletion. They do not use `.env` or modify your Atlas database. The first run downloads a MongoDB binary into the ignored `.cache/` directory and requires internet access.
+
+For just the middleware checks, run `npm run test:middleware`.
+
+## Postman collection and submission evidence
+
+Import `postman/CSC220-Week9.postman_collection.json` and `postman/Local.postman_environment.json` into Postman. Start the API, select the local environment, and run the requests in order against a fresh lab database. Change the collection's `email` before repeating the run so the first registration can succeed. Set `adminEmail` and `adminPassword` to an existing test account you have promoted to `admin` in MongoDB. The collection saves the login tokens and student ID automatically.
+
+Run `npm run evidence` to execute the same 24-request Postman collection with Newman against a temporary real MongoDB database and generate `submission/report.html`, sanitized JSON results, and PNG screenshots. The runner seeds a dummy admin account only in that temporary database. It uses an installed Chrome or Edge browser; set `CHROME_PATH` if your browser is elsewhere. On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`.
+
+See `submission/README.md` for the submission checklist and screenshots. These are screenshots of an actual Newman/Postman collection report. The lab specifically requests Postman screenshots; if your instructor requires the desktop Postman interface, use the included collection to capture those after configuring Atlas. The stored-password screenshot proves hashing in the temporary MongoDB database; check the `users` collection in Atlas after running with your own URI.
+
+Never commit `.env`, real database credentials, or real bearer tokens. The checked-in evidence uses dummy lab accounts and redacts JWTs.
+
+The production dependency audit (`npm audit --omit=dev`) reported zero vulnerabilities during verification. Newman 6.2.3 still has upstream advisories in its development-only dependency tree; patched compatible dependencies are pinned through `overrides` in `package.json`.
