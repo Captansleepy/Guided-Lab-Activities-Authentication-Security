@@ -41,7 +41,7 @@ Authorization: Bearer <token>
 
 Registration accepts an email and a password of at least eight characters. It never accepts a role from the request, and the password is hashed before it is saved. To test admin deletion, promote a test user's `role` to `admin` in the MongoDB `users` collection, then log in again to get a token containing the updated role.
 
-## Postman checks
+## Manual API checks
 
 1. Register with `POST /api/auth/register` and JSON such as `{"email":"student1@example.com","password":"password123"}`. Expect `201`; the response does not include the password.
 2. Log in with `POST /api/auth/login` using the same credentials. Expect `200` with a token. A wrong password returns `401`.
@@ -50,22 +50,10 @@ Registration accepts an email and a password of at least eight characters. It ne
 5. Try DELETE with a normal-user token; expect `403`. Promote a test user in Atlas, log in again, and retry with the new admin token; expect `204`.
 6. An invalid token returns `401`; `/api/auth/me` returns the authenticated user's id and role.
 
+Keep your screenshots locally in the ignored `submission/` folder. Capture the request method, URL, response status, and response body together. Keep `.env` credentials and bearer tokens private.
+
 ## Automated verification
 
 Run `npm test` for the middleware and real HTTP integration tests. The integration tests start a disposable local MongoDB database, verify password hashes in stored documents, and exercise registration, login, public reads, protected writes, validation, and admin deletion. They do not use `.env` or modify your Atlas database. The first run downloads a MongoDB binary into the ignored `.cache/` directory and requires internet access.
 
 For just the middleware checks, run `npm run test:middleware`.
-
-## Postman collection and submission evidence
-
-Import `postman/CSC220-Week9.postman_collection.json` and `postman/Local.postman_environment.json` into Postman. Start the API, select the local environment, and run the requests in order against a fresh lab database. Change the collection's `email` before repeating the run so the first registration can succeed. Set `adminEmail` and `adminPassword` to an existing test account you have promoted to `admin` in MongoDB. The collection saves the login tokens and student ID automatically.
-
-Run `npm run evidence` to execute the same 24-request Postman collection with Newman against a temporary real MongoDB database and generate `submission/report.html`, sanitized JSON results, and PNG screenshots. The runner seeds a dummy admin account only in that temporary database. It uses an installed Chrome or Edge browser; set `CHROME_PATH` if your browser is elsewhere. On Windows PowerShell, use `npm.cmd` if execution policy blocks `npm.ps1`.
-
-See `submission/README.md` for the submission checklist and screenshots. These are screenshots of an actual Newman/Postman collection report. The lab specifically requests Postman screenshots; if your instructor requires the desktop Postman interface, use the included collection to capture those after configuring Atlas. The stored-password screenshot proves hashing in the temporary MongoDB database; check the `users` collection in Atlas after running with your own URI.
-
-Actual Thunder Client interface screenshots from a completed Atlas test session are also available in `submission/thunder-client/`. All 19 pictured checks passed, including 401, 403, authenticated creation and updates, and admin deletion. The capture server used port 3100 and a temporary JWT secret; its dummy records were removed after testing. `atlas-password-proof.json` contains sanitized selected database fields and the bcrypt comparison result for that dummy user; the stored hash is redacted.
-
-Never commit `.env`, real database credentials, or real bearer tokens. The checked-in evidence uses dummy lab accounts and redacts JWTs.
-
-The production dependency audit (`npm audit --omit=dev`) reported zero vulnerabilities during verification. Newman 6.2.3 still has upstream advisories in its development-only dependency tree; patched compatible dependencies are pinned through `overrides` in `package.json`.

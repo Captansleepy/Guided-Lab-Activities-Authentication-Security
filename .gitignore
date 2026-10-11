@@ -3,5 +3,6 @@ node_modules/
 npm-debug.log*
 coverage/
 .cache/
-submission/*.log
-submission/*.zip
+postman/
+submission/
+scripts/create-evidence.js
